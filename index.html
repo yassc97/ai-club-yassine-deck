@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>AI Club x Yassine — Deck</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --primary-100:#0D261E;
+  --primary-90:#203A31;
+  --primary-80:#3B504A;
+  --primary-70:#516862;
+  --primary-60:#6F8580;
+  --primary-50:#849D96;
+  --primary-40:#A0B3AD;
+  --primary-30:#C0CBC7;
+  --primary-20:#D2DFDB;
+  --primary-10:#EAF1EE;
+  --primary-5:#F3F7F6;
+  --primary-3:#F7FAF9;
+  --primary-alpha-5:rgba(13,38,30,0.05);
+  --primary-alpha-10:rgba(13,38,30,0.10);
+
+  --highlight-darkest:#004734;
+  --highlight-dark:#006647;
+  --highlight:#008F63;
+  --highlight-medium:#CCE8DF;
+  --highlight-light:#F0FAF6;
+
+  --status-warning:#FF881F;
+  --status-warning-light:#FFF0E0;
+
+  --extra-yellow:#FFE016;
+  --extra-purple:#8B4DD6;
+  --extra-purple-light:#F0E8FA;
+
+  --white:#FFFFFF;
+
+  --radius-sm:6px;
+  --radius-md:8px;
+  --radius-lg:10px;
+  --radius-xl:12px;
+  --radius-2xl:16px;
+
+  --shadow-xs:0 1px 2px rgba(13,38,30,0.04);
+  --shadow-sm:0 2px 6px rgba(13,38,30,0.06);
+  --shadow-md:0 4px 16px rgba(13,38,30,0.08), 0 1px 3px rgba(13,38,30,0.05);
+  --shadow-lg:0 12px 32px rgba(13,38,30,0.12), 0 2px 6px rgba(13,38,30,0.06);
+
+  --ease:cubic-bezier(0.4,0,0.2,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+html,body{background:var(--primary-5);font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--primary-100);-webkit-font-smoothing:antialiased;font-feature-settings:'case' 1}
+
+.deck{display:flex;flex-direction:column;align-items:center;gap:24px;padding:32px 16px 96px}
+.slide{width:100%;max-width:1280px;aspect-ratio:16/9;background:var(--white);border-radius:var(--radius-2xl);box-shadow:var(--shadow-md);position:relative;overflow:hidden;display:flex;flex-direction:column;scroll-margin-top:80px}
+
+/* Standard slide layout */
+.slide-body{flex:1;padding:48px 64px 0;display:flex;flex-direction:column;align-items:flex-start}
+.slide-tag{font-size:11px;font-weight:700;color:var(--highlight-dark);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;align-self:flex-start;background:var(--highlight-light);padding:5px 10px;border-radius:var(--radius-sm)}
+.slide-title{font-size:30px;font-weight:800;line-height:1.12;letter-spacing:-.02em;color:var(--primary-100);margin-bottom:10px;max-width:1080px}
+.slide-sub{font-size:15px;color:var(--primary-70);font-weight:500;line-height:1.5;margin-bottom:32px;max-width:880px}
+.slide-content{flex:1;display:flex;flex-direction:column;justify-content:center;align-self:stretch;width:100%}
+.slide-footer{padding:16px 64px 24px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--primary-10);font-size:11px;color:var(--primary-50);letter-spacing:.04em}
+.slide-footer .source{font-style:italic}
+.slide-footer .pagenum{font-weight:600;font-family:'JetBrains Mono',monospace}
+
+/* ─────────────────────────────────────────────────
+   Cover
+   ───────────────────────────────────────────────── */
+.cover{background:linear-gradient(135deg,#001F1D 0%,#0D261E 100%);color:var(--white)}
+.cover .slide-body{padding:64px 72px 0;justify-content:center;align-items:flex-start}
+.cover .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:999px;font-size:11px;font-weight:600;color:rgba(255,255,255,0.85);letter-spacing:.12em;text-transform:uppercase;margin-bottom:32px;align-self:flex-start}
+.cover .badge .dot{width:6px;height:6px;background:var(--highlight);border-radius:50%}
+.cover h1{font-size:48px;font-weight:800;line-height:1.06;letter-spacing:-.026em;color:var(--white);margin-bottom:18px;max-width:1000px}
+.cover h1 em{color:var(--highlight-medium);font-style:normal}
+.cover .lead{font-size:17px;line-height:1.55;color:rgba(255,255,255,0.72);max-width:780px;margin-bottom:48px;font-weight:400}
+.cover .meta-row{display:flex;gap:48px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.12);flex-wrap:wrap}
+.cover .meta-row div{font-size:13px}
+.cover .meta-row b{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,0.45);font-weight:600;margin-bottom:6px}
+.cover .meta-row div span{color:var(--white);font-weight:500}
+.cover .slide-footer{border-top:1px solid rgba(255,255,255,0.10);color:rgba(255,255,255,0.4)}
+
+/* ─────────────────────────────────────────────────
+   Agenda
+   ───────────────────────────────────────────────── */
+.agenda{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 20px;max-width:980px;margin:0 auto;width:100%}
+.agenda-item{display:flex;gap:14px;align-items:center;padding:13px 16px;background:var(--white);border:1px solid var(--primary-10);border-radius:var(--radius-md);font-size:14px;font-weight:500;color:var(--primary-90);text-decoration:none;cursor:pointer;transition:all 0.15s var(--ease)}
+.agenda-item:hover{background:var(--highlight-light);border-color:var(--highlight);transform:translateX(4px);box-shadow:var(--shadow-xs)}
+.agenda-item .n{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--highlight-dark);font-weight:600;min-width:24px}
+.agenda-item .t{flex:1}
+.agenda-item .arrow{opacity:0;transform:translateX(-4px);transition:all 0.15s var(--ease);color:var(--highlight-dark);font-size:14px}
+.agenda-item:hover .arrow{opacity:1;transform:translateX(0)}
+
+/* ─────────────────────────────────────────────────
+   Single-viz centered layout
+   ───────────────────────────────────────────────── */
+.center-viz{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+.center-viz svg{display:block;max-width:1100px;width:100%;height:auto}
+
+.viz-frame{background:var(--primary-3);border:1px solid var(--primary-10);border-radius:var(--radius-xl);padding:24px;width:100%;max-width:1100px;margin:0 auto}
+.viz-frame svg{display:block;margin:0 auto;max-width:100%;height:auto}
+
+/* Subtle one-line caption */
+.simple-caption{font-size:13px;color:var(--primary-60);text-align:center;font-style:italic;margin-top:14px;line-height:1.5;max-width:900px;margin-left:auto;margin-right:auto}
+
+/* ─────────────────────────────────────────────────
+   Decision list / Table / etc.
+   ───────────────────────────────────────────────── */
+.callout{background:var(--highlight-light);border-left:3px solid var(--highlight);padding:18px 24px;border-radius:0 var(--radius-md) var(--radius-md) 0;font-size:18px;font-style:italic;color:var(--primary-90);max-width:900px;line-height:1.5}
+
+.table-clean{width:100%;max-width:980px;margin:0 auto;border-collapse:collapse;font-size:13.5px}
+.table-clean tr{border-bottom:1px solid var(--primary-10);transition:background 0.12s var(--ease)}
+.table-clean tr:hover{background:var(--primary-5)}
+.table-clean tr:last-child{border-bottom:0}
+.table-clean td{padding:11px 14px;color:var(--primary-90)}
+.table-clean td:first-child{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--highlight-dark);font-weight:600;width:48px;text-align:center}
+.table-clean td:nth-child(2){font-weight:500;color:var(--primary-100)}
+.table-clean tr.highlight td:nth-child(2){font-weight:700}
+.table-clean tr.highlight td:nth-child(2)::after{content:" ★";color:var(--highlight)}
+
+.decision-list{max-width:920px;margin:0 auto;width:100%}
+.decision{display:flex;gap:18px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--primary-10);transition:all 0.15s var(--ease)}
+.decision:hover{padding-left:8px}
+.decision:last-child{border-bottom:0}
+.decision .num{flex:0 0 36px;height:36px;border-radius:50%;background:var(--primary-100);color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;transition:all 0.15s var(--ease)}
+.decision:hover .num{background:var(--highlight-dark);transform:scale(1.08)}
+.decision .body{flex:1;font-size:14.5px;line-height:1.55;color:var(--primary-90)}
+.decision .body strong{color:var(--primary-100);display:block;font-size:14.5px;margin-bottom:4px;font-weight:600}
+
+/* ─────────────────────────────────────────────────
+   Navigation chrome
+   ───────────────────────────────────────────────── */
+.nav-bar{position:fixed;top:20px;right:24px;display:flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--primary-10);box-shadow:var(--shadow-md);padding:6px 8px;border-radius:var(--radius-xl);z-index:1000;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--primary-100)}
+.nav-bar .indicator{padding:0 8px;letter-spacing:.05em;font-variant-numeric:tabular-nums}
+.nav-bar .indicator .current{color:var(--highlight-dark)}
+.nav-bar button{width:32px;height:32px;border:none;background:transparent;border-radius:var(--radius-sm);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;color:var(--primary-100);transition:all 0.12s var(--ease)}
+.nav-bar button:hover{background:var(--primary-alpha-5)}
+.nav-bar button:disabled{opacity:0.3;cursor:not-allowed}
+.nav-bar button svg{width:16px;height:16px}
+
+.progress-bar{position:fixed;top:0;left:0;right:0;height:3px;background:var(--primary-10);z-index:999}
+.progress-bar .fill{height:100%;background:var(--highlight);transition:width 0.2s var(--ease);width:0%}
+
+.kbd-hint{position:fixed;bottom:18px;right:24px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--primary-60);background:var(--white);border:1px solid var(--primary-10);padding:6px 12px;border-radius:var(--radius-sm);box-shadow:var(--shadow-xs);letter-spacing:.04em;z-index:1000}
+.kbd-hint kbd{display:inline-block;background:var(--primary-100);color:var(--white);padding:1px 6px;border-radius:3px;font-size:9.5px;font-weight:600;margin:0 2px}
+
+/* Print */
+@media print{
+  body{background:white}
+  .deck{padding:0;gap:0}
+  .slide{box-shadow:none;border-radius:0;page-break-after:always;max-width:none;aspect-ratio:auto;width:297mm;height:210mm}
+  .nav-bar,.progress-bar,.kbd-hint{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar"><div class="fill" id="progressFill"></div></div>
+
+<div class="nav-bar" id="navBar">
+  <button id="prevBtn" aria-label="Précédent">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <span class="indicator"><span class="current" id="currentSlide">01</span> / <span id="totalSlides">11</span></span>
+  <button id="nextBtn" aria-label="Suivant">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+</div>
+
+<div class="kbd-hint"><kbd>↑</kbd><kbd>↓</kbd> naviguer · clic agenda</div>
+
+<div class="deck">
+
+<!-- ════════════ 01 — COVER ════════════ -->
+<section class="slide cover" id="slide-1">
+  <div class="slide-body">
+    <span class="badge"><span class="dot"></span>AI Club · Spicy Lemon</span>
+    <h1>L'obsession utilisateur a un coût.<br>L'IA l'a rendu <em>très faible</em>.</h1>
+    <p class="lead">Le Product OS de Mobile First — préparation podcast.</p>
+    <div class="meta-row">
+      <div><b>Date</b>29 mai 2026 · 10h00</div>
+      <div><b>Durée</b>1h30</div>
+      <div><b>Plateau</b>Riverside</div>
+      <div><b>Invité</b>Yassine — Mobile First</div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span class="source">Préparation podcast AI Club</span>
+    <span class="pagenum">01</span>
+  </div>
+</section>
+
+<!-- ════════════ 02 — AGENDA ════════════ -->
+<section class="slide" id="slide-2">
+  <div class="slide-body">
+    <span class="slide-tag">Agenda</span>
+    <h2 class="slide-title">Le problème, la fondation, 6 agents, le cheat code.</h2>
+    <p class="slide-sub">Cliquer sur un item pour y aller directement.</p>
+    <div class="slide-content">
+      <div class="agenda">
+        <a class="agenda-item" data-target="3"><span class="n">03</span><span class="t">Le problème — Inverser le ratio 60/40</span><span class="arrow">→</span></a>
+        <a class="agenda-item" data-target="4"><span class="n">04</span><span class="t">La fondation — Le data lake</span><span class="arrow">→</span></a>
+        <a class="agenda-item" data-target="5"><span class="n">05</span><span class="t">Agent 1 — Customer Pulse</span><span class="arrow">→</span></a>
+        <a class="agenda-item" data-target="6"><span class="n">06</span><span class="t">Agent 2 — Jason PM</span><span class="arrow">→</span></a>
+        <a class="agenda-item" data-target="7"><span class="n">07</span><span class="t">Agent 3 — /follow-up</span><span class="arrow">→</span></a>
+        <a class="agenda-item" data-target="8"><span class="n">08</span><span class="t">Agent 4 — /bug-report</span><span class="arrow">→</span></a>
+        <a class="agenda-item" data-target="9"><span class="n">09</span><span class="t">Agent 5 — /deepdive</span><span class="arrow">→</span></a>
+        <a class="agenda-item" data-target="10"><span class="n">10</span><span class="t">Agent 6 — Competitor Monitor</span><span class="arrow">→</span></a>
+        <a class="agenda-item" data-target="11"><span class="n">11</span><span class="t">Le cheat code — un skill qui évolue tout seul</span><span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span class="source">Réponses au brief AI Club</span>
+    <span class="pagenum">02</span>
+  </div>
+</section>
+
+<!-- ════════════ 03 — LE PROBLÈME 60/40 ════════════ -->
+<section class="slide" id="slide-3">
+  <div class="slide-body">
+    <span class="slide-tag">Le problème</span>
+    <h2 class="slide-title">Inverser le ratio 60/40.</h2>
+    <p class="slide-sub">L'IA n'accélère pas la compréhension utilisateur. Elle absorbe la collecte pour libérer le temps de la compréhension.</p>
+    <div class="slide-content">
+      <div class="center-viz">
+        <svg viewBox="0 0 900 280" xmlns="http://www.w3.org/2000/svg">
+          <text x="160" y="32" text-anchor="middle" font-family="Inter" font-size="12" font-weight="700" fill="#6F8580" letter-spacing="1.2">AVANT</text>
+          <rect x="80" y="50" width="160" height="130" rx="8" fill="#FF881F" opacity="0.9"/>
+          <text x="160" y="100" text-anchor="middle" font-family="Inter" font-size="14" font-weight="700" fill="#fff">Collecte</text>
+          <text x="160" y="135" text-anchor="middle" font-family="Inter" font-size="36" font-weight="800" fill="#fff" letter-spacing="-1">60%</text>
+          <text x="160" y="162" text-anchor="middle" font-family="Inter" font-size="12" fill="#fff" opacity="0.9">~7h/semaine</text>
+          <rect x="80" y="188" width="160" height="70" rx="8" fill="#0D261E" opacity="0.9"/>
+          <text x="160" y="214" text-anchor="middle" font-family="Inter" font-size="13" font-weight="700" fill="#fff">Compréhension</text>
+          <text x="160" y="240" text-anchor="middle" font-family="Inter" font-size="22" font-weight="800" fill="#fff">40%</text>
+          <text x="450" y="120" text-anchor="middle" font-family="Inter" font-size="15" font-weight="700" fill="#006647">L'IA absorbe la collecte</text>
+          <path d="M 280 170 L 620 170" stroke="#006647" stroke-width="3" fill="none" marker-end="url(#a1)"/>
+          <defs><marker id="a1" markerWidth="12" markerHeight="12" refX="11" refY="3.5" orient="auto"><path d="M0,0 L11,3.5 L0,7 z" fill="#006647"/></marker></defs>
+          <text x="740" y="32" text-anchor="middle" font-family="Inter" font-size="12" font-weight="700" fill="#006647" letter-spacing="1.2">AUJOURD'HUI</text>
+          <rect x="660" y="50" width="160" height="32" rx="6" fill="#FF881F" opacity="0.4"/>
+          <text x="740" y="72" text-anchor="middle" font-family="Inter" font-size="12" font-weight="700" fill="#fff">Collecte ~0h</text>
+          <rect x="660" y="90" width="160" height="170" rx="8" fill="#006647"/>
+          <text x="740" y="148" text-anchor="middle" font-family="Inter" font-size="14" font-weight="700" fill="#fff">Compréhension</text>
+          <text x="740" y="185" text-anchor="middle" font-family="Inter" font-size="36" font-weight="800" fill="#fff" letter-spacing="-1">~100%</text>
+          <text x="740" y="215" text-anchor="middle" font-family="Inter" font-size="12" fill="#fff" opacity="0.9">6 à 8h avec users</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span class="source">Mesure interne, hebdomadaire moyenne · Mai 2026</span>
+    <span class="pagenum">03</span>
+  </div>
+</section>
+
+<!-- ════════════ 04 — LE DATA LAKE ════════════ -->
+<section class="slide" id="slide-4">
+  <div class="slide-body">
+    <span class="slide-tag">La fondation</span>
+    <h2 class="slide-title">Le data lake.</h2>
+    <p class="slide-sub">Un dossier de fichiers .md sur un Mac. Pas de BDD, pas de cloud. 3 semaines avant le premier agent.</p>
+    <div class="slide-content">
+      <div class="center-viz">
+        <svg viewBox="0 0 1000 320" xmlns="http://www.w3.org/2000/svg">
+          <text x="500" y="22" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="#6F8580" letter-spacing="1.4">SOURCES</text>
+          <g font-family="Inter" font-size="12" font-weight="500" fill="#0D261E">
+            <rect x="50" y="38" width="138" height="32" rx="6" fill="#EAF1EE" stroke="#C0CBC7"/><text x="119" y="58" text-anchor="middle">Slack</text>
+            <rect x="200" y="38" width="138" height="32" rx="6" fill="#EAF1EE" stroke="#C0CBC7"/><text x="269" y="58" text-anchor="middle">Intercom</text>
+            <rect x="350" y="38" width="138" height="32" rx="6" fill="#EAF1EE" stroke="#C0CBC7"/><text x="419" y="58" text-anchor="middle">Claap / Granola</text>
+            <rect x="500" y="38" width="138" height="32" rx="6" fill="#EAF1EE" stroke="#C0CBC7"/><text x="569" y="58" text-anchor="middle">Metabase</text>
+            <rect x="650" y="38" width="138" height="32" rx="6" fill="#EAF1EE" stroke="#C0CBC7"/><text x="719" y="58" text-anchor="middle">Linear / Notion</text>
+            <rect x="800" y="38" width="150" height="32" rx="6" fill="#EAF1EE" stroke="#C0CBC7"/><text x="875" y="58" text-anchor="middle">Gmail · Amplitude</text>
+          </g>
+          <path d="M 500 78 L 500 110" stroke="#6F8580" stroke-width="2" fill="none" marker-end="url(#a2)"/>
+          <rect x="50" y="120" width="900" height="110" rx="14" fill="#FFE016" opacity="0.30" stroke="#FFE016" stroke-width="2.5"/>
+          <text x="500" y="152" text-anchor="middle" font-family="Inter" font-size="16" font-weight="700" fill="#0D261E">LA MÉMOIRE — fichiers .md versionnés en Git</text>
+          <g font-family="Inter" font-size="11" font-weight="500" fill="#3B504A">
+            <text x="130" y="184" text-anchor="middle">people/</text>
+            <text x="240" y="184" text-anchor="middle">clients/</text>
+            <text x="350" y="184" text-anchor="middle">projects/</text>
+            <text x="465" y="184" text-anchor="middle">decisions/</text>
+            <text x="580" y="184" text-anchor="middle">feedback/</text>
+            <text x="710" y="184" text-anchor="middle">competitors/</text>
+            <text x="850" y="184" text-anchor="middle">metrics/</text>
+          </g>
+          <text x="500" y="212" text-anchor="middle" font-family="Inter" font-size="11" font-style="italic" fill="#516862">+ MEMORY.md (20 lignes) = routing table</text>
+          <path d="M 500 240 L 500 270" stroke="#6F8580" stroke-width="2" fill="none" marker-end="url(#a2)"/>
+          <text x="500" y="288" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="#6F8580" letter-spacing="1.4">AGENTS</text>
+          <defs><marker id="a2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 z" fill="#6F8580"/></marker></defs>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span class="source">« Si la source est fausse ou incomplète, ta réponse le sera aussi »</span>
+    <span class="pagenum">04</span>
+  </div>
+</section>
+
+<!-- ════════════ 05 — AGENT 1 CUSTOMER PULSE ════════════ -->
+<section class="slide" id="slide-5">
+  <div class="slide-body">
+    <span class="slide-tag">Agent 1</span>
+    <h2 class="slide-title">Customer Pulse — le rapport hebdo.</h2>
+    <p class="slide-sub">Chaque lundi 9h, le pipeline agrège tous les signaux et crée les tickets Linear avec backend logs.</p>
+    <div class="slide-content">
+      <div class="center-viz">
+        <svg viewBox="0 0 1000 260" xmlns="http://www.w3.org/2000/svg">
+          <text x="90" y="22" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="#6F8580" letter-spacing="1.4">SIGNAUX</text>
+          <g font-family="Inter" font-size="12" font-weight="500" fill="#0D261E">
+            <rect x="30" y="40" width="130" height="34" rx="6" fill="#EAF1EE" stroke="#C0CBC7"/><text x="95" y="62" text-anchor="middle">Slack (120 ch.)</text>
+            <rect x="30" y="84" width="130" height="34" rx="6" fill="#EAF1EE" stroke="#C0CBC7"/><text x="95" y="106" text-anchor="middle">Intercom (300+)</text>
+            <rect x="30" y="128" width="130" height="34" rx="6" fill="#EAF1EE" stroke="#C0CBC7"/><text x="95" y="150" text-anchor="middle">Claap</text>
+            <rect x="30" y="172" width="130" height="34" rx="6" fill="#EAF1EE" stroke="#C0CBC7"/><text x="95" y="194" text-anchor="middle">Metabase</text>
+          </g>
+          <path d="M 170 57 L 360 130" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p1)"/>
+          <path d="M 170 101 L 360 130" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p1)"/>
+          <path d="M 170 145 L 360 130" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p1)"/>
+          <path d="M 170 189 L 360 130" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p1)"/>
+          <rect x="370" y="90" width="220" height="80" rx="10" fill="#006647"/>
+          <text x="480" y="122" text-anchor="middle" font-family="Inter" font-size="16" font-weight="700" fill="#fff">Customer Pulse</text>
+          <text x="480" y="144" text-anchor="middle" font-family="Inter" font-size="12" fill="#fff" opacity="0.9">cron lundi 9h00</text>
+          <text x="480" y="160" text-anchor="middle" font-family="Inter" font-size="11" font-style="italic" fill="#fff" opacity="0.75">lit + clusterise auto</text>
+          <path d="M 600 110 L 800 60" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p1)"/>
+          <path d="M 600 130 L 800 130" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p1)"/>
+          <path d="M 600 150 L 800 200" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p1)"/>
+          <text x="900" y="22" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="#6F8580" letter-spacing="1.4">SORTIES</text>
+          <g font-family="Inter" font-size="12" font-weight="600" fill="#fff">
+            <rect x="810" y="44" width="160" height="36" rx="6" fill="#0D261E"/><text x="890" y="67" text-anchor="middle">Thread Slack</text>
+            <rect x="810" y="112" width="160" height="36" rx="6" fill="#0D261E"/><text x="890" y="135" text-anchor="middle">Tickets Linear</text>
+            <rect x="810" y="180" width="160" height="36" rx="6" fill="#0D261E"/><text x="890" y="203" text-anchor="middle">Page Notion</text>
+          </g>
+          <defs><marker id="p1" markerWidth="8" markerHeight="8" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5 z" fill="#6F8580"/></marker></defs>
+        </svg>
+      </div>
+      <p class="simple-caption">Lundi 19 mai : 7 tickets Linear auto, 3 priorisés par les squads avant 10h.</p>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span class="source">Customer Pulse pipeline · mesures hebdomadaires</span>
+    <span class="pagenum">05</span>
+  </div>
+</section>
+
+<!-- ════════════ 06 — AGENT 2 JASON PM ════════════ -->
+<section class="slide" id="slide-6">
+  <div class="slide-body">
+    <span class="slide-tag">Agent 2</span>
+    <h2 class="slide-title">Jason PM — l'alter ego pour chaque ingénieur.</h2>
+    <p class="slide-sub">Un ingé tag <code style="font-family:'JetBrains Mono';font-size:13px;background:var(--primary-5);padding:1px 6px;border-radius:3px">@Jason</code> dans Slack et obtient le contexte complet d'une feature en 5 minutes.</p>
+    <div class="slide-content">
+      <div class="center-viz">
+        <svg viewBox="0 0 1000 280" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="80" cy="140" r="30" fill="#0D261E"/>
+          <text x="80" y="146" text-anchor="middle" font-family="Inter" font-size="14" font-weight="800" fill="#fff">Dev</text>
+          <text x="80" y="190" text-anchor="middle" font-family="Inter" font-size="11" fill="#516862" font-style="italic">@Jason dans Slack</text>
+          <path d="M 120 140 L 210 140" stroke="#006647" stroke-width="2.5" fill="none" marker-end="url(#p2)"/>
+          <rect x="220" y="90" width="220" height="100" rx="12" fill="#006647"/>
+          <text x="330" y="124" text-anchor="middle" font-family="Inter" font-size="17" font-weight="700" fill="#fff">Jason PM</text>
+          <text x="330" y="146" text-anchor="middle" font-family="Inter" font-size="11" fill="#fff" opacity="0.85">lit memory/clients/*</text>
+          <text x="330" y="162" text-anchor="middle" font-family="Inter" font-size="11" fill="#fff" opacity="0.85">+ memory/projects/*</text>
+          <path d="M 450 140 L 530 140" stroke="#006647" stroke-width="2.5" fill="none" marker-end="url(#p2)"/>
+          <g font-family="Inter" font-size="11" font-weight="500" fill="#0D261E">
+            <rect x="540" y="40" width="190" height="28" rx="5" fill="#F0FAF6" stroke="#006647"/><text x="635" y="58" text-anchor="middle">% users affectés</text>
+            <rect x="540" y="72" width="190" height="28" rx="5" fill="#F0FAF6" stroke="#006647"/><text x="635" y="90" text-anchor="middle">Deals perdus liés</text>
+            <rect x="540" y="104" width="190" height="28" rx="5" fill="#F0FAF6" stroke="#006647"/><text x="635" y="122" text-anchor="middle">Benchmark + screenshots</text>
+            <rect x="540" y="136" width="190" height="28" rx="5" fill="#F0FAF6" stroke="#006647"/><text x="635" y="154" text-anchor="middle">Specs de démarrage</text>
+            <rect x="540" y="168" width="190" height="28" rx="5" fill="#F0FAF6" stroke="#006647"/><text x="635" y="186" text-anchor="middle">Charge actuelle squad</text>
+            <rect x="540" y="200" width="190" height="28" rx="5" fill="#F0FAF6" stroke="#006647"/><text x="635" y="218" text-anchor="middle">Suggestion de priorité</text>
+          </g>
+          <text x="860" y="120" text-anchor="middle" font-family="Inter" font-size="13" fill="#3B504A" font-style="italic">en</text>
+          <text x="860" y="172" text-anchor="middle" font-family="Inter" font-size="56" font-weight="800" fill="#006647" letter-spacing="-2">5 min</text>
+          <defs><marker id="p2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 z" fill="#006647"/></marker></defs>
+        </svg>
+      </div>
+      <p class="simple-caption">Plus aucun ingé ne ping le PM pour le contexte depuis 2 mois.</p>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span class="source">« Ce qu'un humain ne peut pas faire en 5 minutes, Jason le fait en 5 minutes »</span>
+    <span class="pagenum">06</span>
+  </div>
+</section>
+
+<!-- ════════════ 07 — AGENT 3 /FOLLOW-UP ════════════ -->
+<section class="slide" id="slide-7">
+  <div class="slide-body">
+    <span class="slide-tag">Agent 3</span>
+    <h2 class="slide-title">/follow-up — post-call.</h2>
+    <p class="slide-sub">Un lien Claap collé. 5 drafts en parallèle, calibrés sur l'historique du contact.</p>
+    <div class="slide-content">
+      <div class="center-viz">
+        <svg viewBox="0 0 1000 260" xmlns="http://www.w3.org/2000/svg">
+          <rect x="40" y="105" width="180" height="60" rx="10" fill="#EAF1EE" stroke="#C0CBC7"/>
+          <text x="130" y="132" text-anchor="middle" font-family="Inter" font-size="13" font-weight="600" fill="#0D261E">Lien Claap</text>
+          <text x="130" y="150" text-anchor="middle" font-family="Inter" font-size="11" fill="#516862" font-style="italic">d'un call client</text>
+          <path d="M 230 135 L 290 135" stroke="#006647" stroke-width="2.5" fill="none" marker-end="url(#p3)"/>
+          <rect x="300" y="90" width="220" height="90" rx="12" fill="#006647"/>
+          <text x="410" y="124" text-anchor="middle" font-family="Inter" font-size="17" font-weight="700" fill="#fff">/follow-up</text>
+          <text x="410" y="146" text-anchor="middle" font-family="Inter" font-size="11" fill="#fff" opacity="0.85">tire l'usage + le profil</text>
+          <text x="410" y="162" text-anchor="middle" font-family="Inter" font-size="11" fill="#fff" opacity="0.85">applique des rules d'email</text>
+          <path d="M 530 105 L 620 50" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p3)"/>
+          <path d="M 530 120 L 620 95" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p3)"/>
+          <path d="M 530 135 L 620 140" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p3)"/>
+          <path d="M 530 150 L 620 185" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p3)"/>
+          <path d="M 530 165 L 620 230" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p3)"/>
+          <text x="755" y="22" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="#6F8580" letter-spacing="1.4">5 DRAFTS À VALIDER</text>
+          <g font-family="Inter" font-size="11.5" font-weight="500" fill="#0D261E">
+            <rect x="630" y="36" width="280" height="30" rx="6" fill="#F0FAF6" stroke="#006647"/><text x="770" y="56" text-anchor="middle">Bug-report Slack</text>
+            <rect x="630" y="78" width="280" height="30" rx="6" fill="#F0FAF6" stroke="#006647"/><text x="770" y="98" text-anchor="middle">Ticket Linear + Customer Need</text>
+            <rect x="630" y="124" width="280" height="30" rx="6" fill="#F0FAF6" stroke="#006647"/><text x="770" y="144" text-anchor="middle">Email Gmail (ton calibré) + meeting</text>
+            <rect x="630" y="170" width="280" height="30" rx="6" fill="#F0FAF6" stroke="#006647"/><text x="770" y="190" text-anchor="middle">Message ops</text>
+            <rect x="630" y="214" width="280" height="30" rx="6" fill="#F0FAF6" stroke="#006647"/><text x="770" y="234" text-anchor="middle">Mise à jour profil mémoire</text>
+          </g>
+          <defs><marker id="p3" markerWidth="8" markerHeight="8" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5 z" fill="#6F8580"/></marker></defs>
+        </svg>
+      </div>
+      <p class="simple-caption">Le seul moment humain : je clique sur "Send". Aucun draft posté sans mon clic.</p>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span class="source">Skill créé ces 2 dernières semaines · post-Early Builders</span>
+    <span class="pagenum">07</span>
+  </div>
+</section>
+
+<!-- ════════════ 08 — AGENT 4 /BUG-REPORT ════════════ -->
+<section class="slide" id="slide-8">
+  <div class="slide-body">
+    <span class="slide-tag">Agent 4</span>
+    <h2 class="slide-title">/bug-report — bug remonté en ticket Linear.</h2>
+    <p class="slide-sub">Un bug détecté ou rapporté → ticket Linear enrichi automatiquement, avec priorité et SLA.</p>
+    <div class="slide-content">
+      <div class="center-viz">
+        <svg viewBox="0 0 1000 260" xmlns="http://www.w3.org/2000/svg">
+          <text x="100" y="22" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="#6F8580" letter-spacing="1.4">SOURCES</text>
+          <g font-family="Inter" font-size="12" font-weight="500" fill="#0D261E">
+            <rect x="30" y="60" width="160" height="36" rx="6" fill="#EAF1EE" stroke="#C0CBC7"/><text x="110" y="83" text-anchor="middle">Intercom (support)</text>
+            <rect x="30" y="108" width="160" height="36" rx="6" fill="#EAF1EE" stroke="#C0CBC7"/><text x="110" y="131" text-anchor="middle">Slack (canal bugs)</text>
+            <rect x="30" y="156" width="160" height="36" rx="6" fill="#EAF1EE" stroke="#C0CBC7"/><text x="110" y="179" text-anchor="middle">Call client (Claap)</text>
+          </g>
+          <path d="M 200 78 L 360 130" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p4)"/>
+          <path d="M 200 126 L 360 130" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p4)"/>
+          <path d="M 200 174 L 360 130" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p4)"/>
+          <rect x="370" y="88" width="200" height="84" rx="10" fill="#006647"/>
+          <text x="470" y="118" text-anchor="middle" font-family="Inter" font-size="17" font-weight="700" fill="#fff">/bug-report</text>
+          <text x="470" y="140" text-anchor="middle" font-family="Inter" font-size="11" fill="#fff" opacity="0.85">enrichit + classifie</text>
+          <text x="470" y="156" text-anchor="middle" font-family="Inter" font-size="11" fill="#fff" opacity="0.85">+ backend logs</text>
+          <path d="M 580 130 L 660 130" stroke="#006647" stroke-width="2.5" fill="none" marker-end="url(#p4)"/>
+          <rect x="670" y="60" width="290" height="160" rx="12" fill="#F0FAF6" stroke="#006647" stroke-width="2"/>
+          <text x="815" y="86" text-anchor="middle" font-family="Inter" font-size="13" font-weight="700" fill="#0D261E">Ticket Linear automatique</text>
+          <g font-family="Inter" font-size="11.5" font-weight="500" fill="#0D261E">
+            <text x="690" y="114">▸ Titre clair + résumé</text>
+            <text x="690" y="138">▸ Priorité P0 → P3</text>
+            <text x="690" y="162">▸ SLA assigné</text>
+            <text x="690" y="186">▸ Backend logs attachés</text>
+            <text x="690" y="210">▸ Customer Need lié</text>
+          </g>
+          <defs><marker id="p4" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 z" fill="#006647"/></marker></defs>
+        </svg>
+      </div>
+      <p class="simple-caption">Lundi 19 mai : 7 tickets Linear auto, 3 priorisés avant 10h.</p>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span class="source">Skill créé post-Early Builders, ces 2 dernières semaines</span>
+    <span class="pagenum">08</span>
+  </div>
+</section>
+
+<!-- ════════════ 09 — AGENT 5 /DEEPDIVE ════════════ -->
+<section class="slide" id="slide-9">
+  <div class="slide-body">
+    <span class="slide-tag">Agent 5</span>
+    <h2 class="slide-title">/deepdive — explorer une feature en profondeur.</h2>
+    <p class="slide-sub">Agrège data + signaux quali → cluster les users → emails personnalisés + meetings + benchmark concurrent.</p>
+    <div class="slide-content">
+      <div class="center-viz">
+        <svg viewBox="0 0 1000 280" xmlns="http://www.w3.org/2000/svg">
+          <text x="110" y="22" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="#6F8580" letter-spacing="1.4">DATA + SIGNAUX QUALI</text>
+          <g font-family="Inter" font-size="11" font-weight="500" fill="#0D261E">
+            <rect x="30" y="40" width="170" height="30" rx="6" fill="#EAF1EE" stroke="#C0CBC7"/><text x="115" y="60" text-anchor="middle">Claap (calls)</text>
+            <rect x="30" y="78" width="170" height="30" rx="6" fill="#EAF1EE" stroke="#C0CBC7"/><text x="115" y="98" text-anchor="middle">Intercom (support)</text>
+            <rect x="30" y="116" width="170" height="30" rx="6" fill="#EAF1EE" stroke="#C0CBC7"/><text x="115" y="136" text-anchor="middle">Gmail (emails)</text>
+            <rect x="30" y="154" width="170" height="30" rx="6" fill="#EAF1EE" stroke="#C0CBC7"/><text x="115" y="174" text-anchor="middle">Allo (usage)</text>
+            <rect x="30" y="192" width="170" height="30" rx="6" fill="#EAF1EE" stroke="#C0CBC7"/><text x="115" y="212" text-anchor="middle">Metabase</text>
+          </g>
+          <path d="M 210 130 L 310 130" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p5)"/>
+          <rect x="320" y="80" width="190" height="100" rx="12" fill="#006647"/>
+          <text x="415" y="114" text-anchor="middle" font-family="Inter" font-size="17" font-weight="700" fill="#fff">/deepdive</text>
+          <text x="415" y="138" text-anchor="middle" font-family="Inter" font-size="11" fill="#fff" opacity="0.85">cluster users :</text>
+          <text x="415" y="154" text-anchor="middle" font-family="Inter" font-size="11" fill="#fff" opacity="0.85">power users / insatisfaits</text>
+          <path d="M 520 110 L 620 60" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p5)"/>
+          <path d="M 520 130 L 620 130" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p5)"/>
+          <path d="M 520 150 L 620 200" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p5)"/>
+          <text x="780" y="22" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="#6F8580" letter-spacing="1.4">SORTIES</text>
+          <g font-family="Inter" font-size="12" font-weight="600" fill="#fff">
+            <rect x="630" y="44" width="320" height="36" rx="6" fill="#0D261E"/><text x="790" y="67" text-anchor="middle">Emails personnalisés par cluster</text>
+            <rect x="630" y="112" width="320" height="36" rx="6" fill="#0D261E"/><text x="790" y="135" text-anchor="middle">Meetings bookés auto</text>
+            <rect x="630" y="180" width="320" height="36" rx="6" fill="#0D261E"/><text x="790" y="203" text-anchor="middle">Benchmark concurrent sur la feature</text>
+          </g>
+          <defs><marker id="p5" markerWidth="8" markerHeight="8" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5 z" fill="#6F8580"/></marker></defs>
+        </svg>
+      </div>
+      <p class="simple-caption">/deepdive est passé de v15 à v19 en 6 semaines via Phase 4 (voir slide 11).</p>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span class="source">Skill créé post-Early Builders, ces 2 dernières semaines</span>
+    <span class="pagenum">09</span>
+  </div>
+</section>
+
+<!-- ════════════ 10 — AGENT 6 COMPETITOR MONITOR ════════════ -->
+<section class="slide" id="slide-10">
+  <div class="slide-body">
+    <span class="slide-tag">Agent 6</span>
+    <h2 class="slide-title">Competitor Monitor — la veille en continu.</h2>
+    <p class="slide-sub">16 concurrents surveillés sur changelogs, blogs, pricing, app stores, social. Alertes Slack en temps réel.</p>
+    <div class="slide-content">
+      <div class="center-viz">
+        <svg viewBox="0 0 1000 260" xmlns="http://www.w3.org/2000/svg">
+          <text x="110" y="22" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="#6F8580" letter-spacing="1.4">16 CONCURRENTS · 6 CANAUX</text>
+          <g font-family="Inter" font-size="11" font-weight="500" fill="#0D261E">
+            <rect x="30" y="42" width="170" height="28" rx="5" fill="#EAF1EE" stroke="#C0CBC7"/><text x="115" y="60" text-anchor="middle">Changelogs</text>
+            <rect x="30" y="76" width="170" height="28" rx="5" fill="#EAF1EE" stroke="#C0CBC7"/><text x="115" y="94" text-anchor="middle">Blogs / annonces</text>
+            <rect x="30" y="110" width="170" height="28" rx="5" fill="#EAF1EE" stroke="#C0CBC7"/><text x="115" y="128" text-anchor="middle">Pages pricing</text>
+            <rect x="30" y="144" width="170" height="28" rx="5" fill="#EAF1EE" stroke="#C0CBC7"/><text x="115" y="162" text-anchor="middle">G2 reviews</text>
+            <rect x="30" y="178" width="170" height="28" rx="5" fill="#EAF1EE" stroke="#C0CBC7"/><text x="115" y="196" text-anchor="middle">App stores</text>
+            <rect x="30" y="212" width="170" height="28" rx="5" fill="#EAF1EE" stroke="#C0CBC7"/><text x="115" y="230" text-anchor="middle">Social media</text>
+          </g>
+          <path d="M 210 130 L 310 130" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p6)"/>
+          <rect x="320" y="80" width="200" height="100" rx="12" fill="#006647"/>
+          <text x="420" y="114" text-anchor="middle" font-family="Inter" font-size="16" font-weight="700" fill="#fff">Competitor Monitor</text>
+          <text x="420" y="138" text-anchor="middle" font-family="Inter" font-size="11" fill="#fff" opacity="0.85">Playwright scrape</text>
+          <text x="420" y="154" text-anchor="middle" font-family="Inter" font-size="11" fill="#fff" opacity="0.85">+ diff sémantique Claude</text>
+          <path d="M 530 110 L 630 70" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p6)"/>
+          <path d="M 530 150 L 630 190" stroke="#6F8580" stroke-width="1.5" fill="none" marker-end="url(#p6)"/>
+          <g font-family="Inter" font-size="12" font-weight="600" fill="#fff">
+            <rect x="640" y="52" width="300" height="40" rx="6" fill="#0D261E"/><text x="790" y="76" text-anchor="middle">Alertes Slack temps réel</text>
+            <rect x="640" y="172" width="300" height="40" rx="6" fill="#0D261E"/><text x="790" y="196" text-anchor="middle">Benchmark Notion hebdo</text>
+          </g>
+          <defs><marker id="p6" markerWidth="8" markerHeight="8" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5 z" fill="#6F8580"/></marker></defs>
+        </svg>
+      </div>
+      <p class="simple-caption">Aircall baisse son prix Essentials de 5€ le 12 mai 9h12 — connu avant le café.</p>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span class="source">Stack : Playwright + Claude + SQLite, hébergé sur Mac mini</span>
+    <span class="pagenum">10</span>
+  </div>
+</section>
+
+<!-- ════════════ 11 — BONUS PHASE 4 ════════════ -->
+<section class="slide" id="slide-11">
+  <div class="slide-body">
+    <span class="slide-tag" style="color:var(--extra-purple);background:var(--extra-purple-light)">Le cheat code · climax</span>
+    <h2 class="slide-title">Un skill qui évolue tout seul.</h2>
+    <p class="slide-sub">Je donne un feedback. Le skill propose un patch à son code. J'approuve. Git commit. Le skill apprend, je ne re-corrige plus la même chose.</p>
+    <div class="slide-content">
+      <div class="center-viz">
+        <svg viewBox="0 0 1000 200" xmlns="http://www.w3.org/2000/svg">
+          <rect x="30" y="60" width="200" height="80" rx="10" fill="#F3F7F6" stroke="#C0CBC7"/>
+          <text x="130" y="86" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="#516862" letter-spacing="1">ÉTAPE 1</text>
+          <text x="130" y="110" text-anchor="middle" font-family="Inter" font-size="13" font-weight="600" fill="#0D261E">Yassine donne</text>
+          <text x="130" y="127" text-anchor="middle" font-family="Inter" font-size="13" font-weight="600" fill="#0D261E">un feedback</text>
+          <path d="M 240 100 L 280 100" stroke="#6F8580" stroke-width="2" fill="none" marker-end="url(#p7)"/>
+          <rect x="290" y="60" width="200" height="80" rx="10" fill="#F0E8FA" stroke="#8B4DD6"/>
+          <text x="390" y="86" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="#8B4DD6" letter-spacing="1">ÉTAPE 2</text>
+          <text x="390" y="110" text-anchor="middle" font-family="Inter" font-size="13" font-weight="600" fill="#0D261E">Stop hook fire,</text>
+          <text x="390" y="127" text-anchor="middle" font-family="Inter" font-size="13" font-weight="600" fill="#0D261E">réflexion du skill</text>
+          <path d="M 500 100 L 540 100" stroke="#6F8580" stroke-width="2" fill="none" marker-end="url(#p7)"/>
+          <rect x="550" y="60" width="200" height="80" rx="10" fill="#F0FAF6" stroke="#006647"/>
+          <text x="650" y="86" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="#006647" letter-spacing="1">ÉTAPE 3</text>
+          <text x="650" y="110" text-anchor="middle" font-family="Inter" font-size="13" font-weight="600" fill="#0D261E">Patch proposé,</text>
+          <text x="650" y="127" text-anchor="middle" font-family="Inter" font-size="13" font-weight="600" fill="#0D261E">diff côté gauche/droite</text>
+          <path d="M 760 100 L 800 100" stroke="#6F8580" stroke-width="2" fill="none" marker-end="url(#p7)"/>
+          <rect x="810" y="60" width="160" height="80" rx="10" fill="#0D261E"/>
+          <text x="890" y="86" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="#FFE016" letter-spacing="1">ÉTAPE 4</text>
+          <text x="890" y="110" text-anchor="middle" font-family="Inter" font-size="13" font-weight="600" fill="#fff">git commit :</text>
+          <text x="890" y="128" text-anchor="middle" font-family="JetBrains Mono" font-size="14" font-weight="700" fill="#FFE016">v18 → v19</text>
+          <defs><marker id="p7" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 z" fill="#6F8580"/></marker></defs>
+        </svg>
+      </div>
+      <p class="simple-caption">Sur /deepdive : passage de v15 à v19 en 6 semaines, 4 lessons commitées.</p>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span class="source">Le moment qui distingue l'épisode · à valider en démo climax</span>
+    <span class="pagenum">11</span>
+  </div>
+</section>
+
+</div>
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  const totalEl = document.getElementById('totalSlides');
+  const currentEl = document.getElementById('currentSlide');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const progressFill = document.getElementById('progressFill');
+  const total = slides.length;
+  totalEl.textContent = String(total).padStart(2,'0');
+
+  let activeIdx = 0;
+  const pad = (n) => String(n+1).padStart(2,'0');
+
+  function updateUI(idx){
+    activeIdx = idx;
+    currentEl.textContent = pad(idx);
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx === total-1;
+    progressFill.style.width = ((idx+1)/total*100) + '%';
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+        const idx = Array.from(slides).indexOf(entry.target);
+        if (idx !== -1) updateUI(idx);
+      }
+    });
+  }, { threshold: [0.3, 0.5, 0.7] });
+  slides.forEach(s => io.observe(s));
+
+  function scrollTo(idx){
+    if (idx < 0 || idx >= total) return;
+    slides[idx].scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  prevBtn.addEventListener('click', () => scrollTo(activeIdx - 1));
+  nextBtn.addEventListener('click', () => scrollTo(activeIdx + 1));
+
+  document.addEventListener('keydown', (e) => {
+    if (['ArrowDown','PageDown',' '].includes(e.key)) { e.preventDefault(); scrollTo(activeIdx + 1); }
+    else if (['ArrowUp','PageUp'].includes(e.key)) { e.preventDefault(); scrollTo(activeIdx - 1); }
+    else if (e.key === 'Home') { e.preventDefault(); scrollTo(0); }
+    else if (e.key === 'End') { e.preventDefault(); scrollTo(total - 1); }
+  });
+
+  document.querySelectorAll('.agenda-item').forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetIdx = parseInt(item.getAttribute('data-target')) - 1;
+      scrollTo(targetIdx);
+    });
+  });
+
+  updateUI(0);
+})();
+</script>
+</body>
+</html>
